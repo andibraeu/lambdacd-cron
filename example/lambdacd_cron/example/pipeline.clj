@@ -21,7 +21,7 @@
 (def pipeline-structure
   `((either
       wait-for-manual-trigger
-      (lambdacd-cron/cron 0 12)) ; trigger build every day at 12:00 UTC
+      (lambdacd-cron/cron "0 12 * * *")) ; trigger build every day at 12:00 UTC
      print-date))
 
 (defn -main [& args]
