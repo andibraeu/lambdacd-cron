@@ -2,12 +2,12 @@
   (:require [clojure.test :refer :all]
             [clojure.core.async :as async]
             [lambdacd.event-bus :as event-bus]
-            [lambdacd.util :as utils]
+            [lambdacd.util.internal.temp :as temp-util]
             [lambdacd.internal.default-pipeline-state :as default-pipeline-state])
   (:refer-clojure :exclude [alias]))
 
 (defn- some-ctx-template []
-  (let [config {:home-dir                (utils/create-temp-dir)
+  (let [config {:home-dir                (temp-util/create-temp-dir)
                 :ms-to-wait-for-shutdown 10000}]
     (-> {:initial-pipeline-state   {}                       ;; only used to assemble pipeline-state, not in real life
          :step-id                  [42]
@@ -24,7 +24,7 @@
 (defn- add-pipeline-state-component [template]
   (if (nil? (:pipeline-state-component template))
     (assoc template :pipeline-state-component
-                    (default-pipeline-state/new-default-pipeline-state template :initial-state-for-testing (:initial-pipeline-state template)))
+                    (default-pipeline-state/new-default-pipeline-state (:config template) :initial-state-for-testing (:initial-pipeline-state template)))
     template))
 
 (defn some-ctx []

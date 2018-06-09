@@ -5,10 +5,15 @@
             [lambdacd.steps.control-flow :refer [either with-workspace in-parallel run]]
             [lambdacd.core :as lambdacd]
             [ring.server.standalone :as ring-server]
-            [lambdacd.ui.ui-server :as ui]
+            [lambdacd.ui.core :as ui]
             [lambdacd-cron.core :as lambdacd-cron]
             [lambdacd.runners :as runners]
-            [lambdacd.util :as utils]))
+            )
+  (:import (java.nio.file.attribute FileAttribute)
+           (java.nio.file Files LinkOption)))
+
+(defn- create-temp-dir []
+  (str (Files/createTempDirectory "crontrigger" (into-array FileAttribute []))))
 
 (defn print-date [args ctx]
   (shell/bash ctx (:cwd args) "date"))
@@ -20,7 +25,7 @@
      print-date))
 
 (defn -main [& args]
-  (let [home-dir (utils/create-temp-dir)
+  (let [home-dir (create-temp-dir)
         config {:home-dir home-dir}
         pipeline (lambdacd/assemble-pipeline pipeline-structure config)]
     (runners/start-one-run-after-another pipeline)

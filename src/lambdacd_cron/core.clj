@@ -1,5 +1,5 @@
 (ns lambdacd-cron.core
-  (:require [lambdacd.steps.support :as support]
+  (:require [lambdacd.stepsupport.killable :as support]
             [clj-time.core :as t]
             [clojure.core.async :as async]))
 
