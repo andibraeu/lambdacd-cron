@@ -21,8 +21,6 @@
       (support/if-not-killed ctx
                              (let [current-date  (now)
                                    executionTime (ExecutionTime/forCron cron)
-                                   nextExecution (-> (.nextExecution executionTime current-date)
-                                                     (.get))
                                    startToNow    (.until start-date current-date ChronoUnit/SECONDS)]
 
                                (if (and (>= startToNow 60)
@@ -36,11 +34,11 @@
   "Build step that waits for a default cron pattern to match"
   [pattern]
   (fn [_ ctx]
-    (let [cronDefinition  (CronDefinitionBuilder/instanceDefinitionFor CronType/UNIX)
-          cronParser      (CronParser. cronDefinition)
-          cron            (.parse cronParser pattern)
-          descriptor      (CronDescriptor/instance Locale/US)
-          description     (.describe descriptor cron)
+    (let [cron            (-> (CronDefinitionBuilder/instanceDefinitionFor CronType/UNIX)
+                              (CronParser.)
+                              (.parse pattern))
+          description     (-> (CronDescriptor/instance Locale/US)
+                              (.describe cron))
           result-ch       (:result-channel ctx)
           _               (async/>!! result-ch [:status :waiting])
           _               (async/>!! result-ch
