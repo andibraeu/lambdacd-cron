@@ -10,7 +10,7 @@
             [lambdacd.runners :as runners]
             )
   (:import (java.nio.file.attribute FileAttribute)
-           (java.nio.file Files LinkOption)))
+           (java.nio.file Files)))
 
 (defn- create-temp-dir []
   (str (Files/createTempDirectory "crontrigger" (into-array FileAttribute []))))

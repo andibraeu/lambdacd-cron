@@ -22,7 +22,7 @@ Add the following code to your import statements of your pipeline code
 
 The following code adds a step to your pipeline which triggers every day at 12:00 UTC
 ```clojure
-(lambdacd-cron/cron 0 12)
+(lambdacd-cron/cron "0 12 * * *")
 ```
 
 You'll find a complete example here: [example/pipeline.clj](https://github.com/felixb/lambdacd-cron/blob/master/example/lambdacd_cron/example/pipeline.clj)
@@ -35,11 +35,6 @@ The cron pattern given to `(cron)` consists of the following parts:
 * day-of-month
 * month
 * day-of-week
-
-Currently only numbers and `nil` are supported.
-`nil` translates to `*`.
-Omitted values are filled with `nil`.
-E.g. `(cron 0 12)` translates to `(cron 0 12 nil nil nil)`.
 
 ## Contributing
 
