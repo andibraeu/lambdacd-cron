@@ -10,4 +10,4 @@
   :profiles {:dev {:main         lambdacd-cron.example.pipeline
                    :dependencies [[compojure "1.6.1"]
                                   [ring-server "0.5.0"]
-                                  [ring/ring-mock "0.3.2"]]}})
+                                  [ring/ring-mock "0.4.0"]]}})
