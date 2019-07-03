@@ -3,8 +3,8 @@
   :url "https://github.com/felixb/lambdacd-cron"
   :license {:name "Apache License, version 2.0"
             :url  "http://www.apache.org/licenses/LICENSE-2.0.html"}
-  :dependencies [[org.clojure/clojure "1.10.0"]
-                 [com.cronutils/cron-utils "8.1.1"]
+  :dependencies [[org.clojure/clojure "1.10.1"]
+                 [com.cronutils/cron-utils "9.0.0"]
                  [lambdacd "0.14.3"]]
   :test-paths ["test" "example"]
   :profiles {:dev {:main         lambdacd-cron.example.pipeline
